@@ -37,6 +37,8 @@ internal static class Program
     internal static string? Arg(string[] args, string key) { int index = Array.IndexOf(args, key); return index >= 0 && index + 1 < args.Length ? args[index + 1] : null; }
     private static string FindRoot()
     {
+        var portableRoot = Directory.GetParent(AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar));
+        if (portableRoot != null && File.Exists(Path.Combine(portableRoot.FullName, "desktop-todo.portable"))) return portableRoot.FullName;
         for (var dir = new DirectoryInfo(AppContext.BaseDirectory); dir != null; dir = dir.Parent)
             if (File.Exists(Path.Combine(dir.FullName, "Directory.Build.props"))) return dir.FullName;
         return Directory.GetParent(AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar))?.FullName ?? AppContext.BaseDirectory;
@@ -93,8 +95,8 @@ internal sealed class DesktopApplication : Application
         var exe = Path.Combine(root, "app", "DesktopTodo.exe");
         if (!File.Exists(exe)) throw new FileNotFoundException("请先构建发布版本。", exe);
         using var key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-        if (enabled) key.SetValue("DesktopTodo", "\"" + exe + "\" --startup");
-        else key.DeleteValue("DesktopTodo", false);
+        if (enabled) key.SetValue("DesktopTodo.Public", "\"" + exe + "\" --startup");
+        else key.DeleteValue("DesktopTodo.Public", false);
     }
     private void Tick()
     {

@@ -136,4 +136,10 @@ Check(ordering.Tasks().Single(t=>t.Id=="o3").Deadline==now.AddHours(3) && orderi
 bool invalidOrder=false;
 try{ordering.SetTaskOrder(["o1","o2"]);}catch(InvalidOperationException){invalidOrder=true;}
 Check(invalidOrder && ordering.Tasks().First().Id=="o3","stale partial order rejected atomically");
+using (var sqliteCheck = new SqliteConnection("Data Source=:memory:")) {
+    sqliteCheck.Open(); using var versionCommand=sqliteCheck.CreateCommand(); versionCommand.CommandText="select sqlite_version()";
+    var nativeVersion=Version.Parse((string)versionCommand.ExecuteScalar()!);
+    Check(nativeVersion>=new Version(3,50,2),"native SQLite is beyond CVE-2025-6965 affected versions");
+    Console.WriteLine("Native SQLite: "+nativeVersion);
+}
 Console.WriteLine($"ALL {passed} CHECKS PASSED");
