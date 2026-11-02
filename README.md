@@ -119,7 +119,7 @@ todo
 - `artifacts/releases`：发布产物；不包含个人任务数据库、SDK 或本机快捷方式。
 - 编译器和依赖缓存位于项目内 `.tools`。
 
-主分支和 PR 配置了 Windows 构建流程；版本标签生成 Release **草稿**。远端流水线尚未实际运行验证。详见 [发布流程](docs/PUBLISHING.md)。
+主分支和 PR 配置了 Windows 构建流程；版本标签生成 Release **草稿**。Windows 远端构建已通过；后续版本请查看 [Actions 结果](https://github.com/wregR/Todolist_helper/actions)。详见 [发布流程](docs/PUBLISHING.md)。
 
 ## 许可证与第三方组件
 

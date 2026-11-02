@@ -121,7 +121,7 @@ Use Windows and the .NET SDK selected by `global.json` (currently 10.0.403). Ins
 - `artifacts/releases` contains packages; personal databases, the SDK, and machine-specific shortcuts are excluded.
 - Project SDK state and dependency caches are under `.tools`.
 
-Windows builds are configured for main and pull requests. Version tags create a **draft** GitHub Release. The remote workflow has not yet been exercised. See [Publishing](docs/PUBLISHING.md).
+Windows builds are configured for main and pull requests. Version tags create a **draft** GitHub Release. The Windows workflow has passed on GitHub; consult [Actions](https://github.com/wregR/Todolist_helper/actions) for subsequent builds. See [Publishing](docs/PUBLISHING.md).
 
 ## License and third-party components
 
